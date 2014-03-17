@@ -8,7 +8,14 @@ if (!isset($_POST['id'])) {
 }
 
 $ticket = new Ticket();
+$ticketFollowup = new TicketFollowup();
 if ($ticket->getFromDB($_POST['id'])) {
+   $input = array(
+       'tickets_id' => $_POST['id'],
+       'content'    => "Fermé par le demandeur"
+   );
+   $ticketFollowup->add($input);
+
    $input = array(
        'id'     => $_POST['id'],
        'status' => Ticket::CLOSED
